@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input id="update" type="file">
+  <button id="upload">上传</button>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.js"></script>
+<script>
+  const update = document.getElementById('update');
+  const upload = document.getElementById('upload');
+  const chunkSize = 1024 * 1024
+  let start = 0
+  let end = chunkSize
+  let chunkIndex = 0
+  // const formData = new FormData();
+  update.addEventListener('change', e => {
+    const file = e.target.files[0];
+    while (start < file.size) {
+      let chunk = file.slice(start, end)
+      chunkUpload(chunk, chunkIndex)
+      start = end
+      end = end + chunkSize
+      chunkIndex++
+    }
+  })
+
+  upload.addEventListener('click', () => {
+
+  })
+
+  function chunkUpload(file, chunkIndex) {
+    const formData = new FormData();
+    formData.append('file', file)
+    formData.append('chunkIndex', chunkIndex)
+    // console.log('chunkUpload', file, chunkIndex)
+    console.log('chunkUpload', formData)
+    axios.post('http://127.0.0.1:3000/files/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res => {
+      console.log('success')
+    }).catch(err => {
+      console.log('error', err)
+      return false
+    })
+  }
+
+</script>
+
+</html>

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const whiteUrl = [
-  '/users/login'
+  '/users/login',
+  '/users/register',
+  '/files/upload',
 ]
 const secretKey = 'my-secret-key'
 

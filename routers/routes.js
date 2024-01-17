@@ -1,6 +1,8 @@
 const express = require('express')
 const RoutesRouter = express.Router()
 const Routes = require('../schemas/routers')
+const { ADD_USER } = require('../SQL')
+const connection = require('../mysql')
 
 RoutesRouter.get('/', (req, res) => {
   Routes.find().then((data, error) => {
@@ -38,6 +40,7 @@ RoutesRouter.post('/add', (req, res) => {
       message: '请填写完整信息'
     })
   } else {
+    // connection.query(ADD_USER, [])
     new Routes({ name, path, component, title }).save().then(() => {
       res.send({
         code: 200,
