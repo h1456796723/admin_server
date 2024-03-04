@@ -20,20 +20,6 @@ app.use(router.use('/users', userRouter))
 app.use(router.use('/routes', RoutesRouter))
 app.use(router.use('/files', fileRouter))
 
-// mogoose.connect('mongodb://127.0.0.1:27017/admin_server')
-
-// const db = mogoose.connection;
-
-// db.on('conected', () => {
-//   console.log('Connected to MongoDB', {
-//     serverSelectionTimeoutMS: 3000
-//   });
-// })
-
-// db.on('error', (err) => {
-//   console.log('Error connecting to MongoDB', err);
-// })
-
 connection.connect((err) => {
   if (err) {
     console.log('Error connecting to MySQL', err);
